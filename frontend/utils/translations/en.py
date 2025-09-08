@@ -13,7 +13,7 @@ INVOICE_TRANSLATIONS = {
     "invoice": "Invoice",
     "issued_at": "Issued at",
     "due_to": "Due to",
-    "vat_no": "VAT No",
+    "vat_no": "BIC",
     "notes": "Notes",
     "currency_eur": "EUR",
     "currency_usd": "USD",

@@ -13,7 +13,7 @@ INVOICE_TRANSLATIONS = {
     "invoice": "Faktura",
     "issued_at": "Data wystawienia",
     "due_to": "Termin płatności",
-    "vat_no": "NIP",
+    "vat_no": "BIC",
     "notes": "Uwagi",
     "currency_eur": "EUR",
     "currency_usd": "USD",

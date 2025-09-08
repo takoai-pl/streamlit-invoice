@@ -24,10 +24,10 @@ msgid "postCode"
 msgstr "Kod pocztowy"
 
 msgid "vat_no"
-msgstr "NIP"
+msgstr "BIC"
 
 msgid "vatNo"
-msgstr "NIP"
+msgstr "BIC"
 
 msgid "vat"
 msgstr "VAT" 
