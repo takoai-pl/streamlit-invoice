@@ -13,9 +13,7 @@ class BinaryString(TypeDecorator):
     process_bind_param = lambda self, value, dialect: (
         value.encode("utf-8") if isinstance(value, str) else value
     )
-    process_result_value = lambda self, value, dialect: (
-        value.decode("utf-8") if value else None
-    )
+    process_result_value = lambda self, value, dialect: value
 
 
 class BusinessTable(Base):
@@ -50,6 +48,16 @@ class BusinessTable(Base):
         self.logo = kwargs.get("logo")
 
     def to_json(self) -> dict:
+        # Handle logo encoding safely
+        logo_encoded = None
+        if self.logo:
+            if isinstance(self.logo, str):
+                # Already a base64 string
+                logo_encoded = self.logo
+            else:
+                # Binary data that needs encoding
+                logo_encoded = base64.b64encode(self.logo).decode()
+
         return {
             "businessID": self.businessID,
             "name": self.name,
@@ -62,7 +70,7 @@ class BusinessTable(Base):
             "iban": self.iban,
             "phone": self.phone,
             "email": self.email,
-            "logo": base64.b64encode(self.logo).decode() if self.logo else None,
+            "logo": logo_encoded,
         }
 
     @staticmethod
@@ -70,7 +78,12 @@ class BusinessTable(Base):
         logo_data = None
         if data.get("logo"):
             try:
-                logo_data = base64.b64decode(data["logo"])
+                # Check if it's already binary data
+                if isinstance(data["logo"], bytes):
+                    logo_data = data["logo"]
+                else:
+                    # Assume it's a base64 string
+                    logo_data = base64.b64decode(data["logo"])
             except Exception:
                 logo_data = None
 
