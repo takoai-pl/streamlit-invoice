@@ -10,7 +10,7 @@ CREATE TABLE "business" (
                             "iban" VARCHAR,
                             "phone" VARCHAR,
                             "email" VARCHAR,
-                            "logo" VARCHAR
+                            "logo" BYTEA
 );
 CREATE TABLE "client" (
                           "clientID" VARCHAR PRIMARY KEY,

@@ -3,9 +3,19 @@
 import base64
 from typing import Any
 
-from sqlalchemy import Column, LargeBinary, String
+from sqlalchemy import Column, LargeBinary, String, TypeDecorator
 
 from backend.models.base import Base
+
+
+class BinaryString(TypeDecorator):
+    impl = LargeBinary
+    process_bind_param = lambda self, value, dialect: (
+        value.encode("utf-8") if isinstance(value, str) else value
+    )
+    process_result_value = lambda self, value, dialect: (
+        value.decode("utf-8") if value else None
+    )
 
 
 class BusinessTable(Base):
@@ -23,7 +33,7 @@ class BusinessTable(Base):
     iban = Column("iban", String)
     phone = Column("phone", String)
     email = Column("email", String)
-    logo = Column("logo", LargeBinary, nullable=True)
+    logo = Column("logo", BinaryString, nullable=True)
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
