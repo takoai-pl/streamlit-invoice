@@ -91,7 +91,7 @@ class Generator:
             "LINE5": invoice.business.email,
             "LINE6": translations["vat"],
             "LINE7": invoice.business.vatNo,
-            "LINE8": translations["vat_no"],
+            "LINE8": translations["bic"],
             "LINE9": invoice.business.bic,
         }
         for key, value in details.items():
